@@ -93,7 +93,7 @@ For this, I will create an extremely simple project in nodeJS, just calling a ro
                     - ./pgdata:/var/lib/postgresql/data # where the bank files will come from where they will go on the docker machine
             app:
                 build: . # will start the machine, we pass the directory where the docker is
-                depends_on: 
+                links: 
                     - "db"
                 command: "yarn start" # the command that will be executed at startup
                 ports:
@@ -221,7 +221,7 @@ Para tal, criarei um projeto extremamente simples em nodeJS, somente chamando um
                     - ./pgdata:/var/lib/postgresql/data # de onde sairá os arquivos do banco para onde eles irão na máquina docker
             app:
                 build: . # vai iniciar a máquina, passamos o diretório em que está o Dockerfile
-                depends_on: 
+                links:
                     - "db"
                 command: "yarn start" # o comando que será executado na inicialização.
                 ports:

@@ -16,7 +16,7 @@ services:
             - ./pgdata:/var/lib/postgresql/data # de onde sairá os arquivos do banco para onde eles irão na máquina docker
     app:
         build: . # vai iniciar a máquina, passamos o diretório em que está o Dockerfile
-        depends_on: 
+        links: 
             - "db"
         command: "yarn start" # o comando que será executado na inicialização. o script wait-for-it, faz com que a instancia app inicialize somente depois do banco de dados subir
         ports:
