@@ -1,0 +1,2 @@
+# como o docker já instalará as libs dentro da máquina docker, é desnecessário copiar essa pasta para lá
+node_modules

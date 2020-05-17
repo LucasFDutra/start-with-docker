@@ -1,0 +1,13 @@
+ # versão do composer vinculada a sua versão do docker (o meu é a versão 19.03). veja aqui: https://docs.docker.com/compose/compose-file/
+# para ver sua versão do docker, digite o comando
+# $ sudo docker -v
+version: "3"
+
+services:
+    app:
+        build: . # vai iniciar a máquina, passamos o diretório em que está o Dockerfile
+        command: npm start # o comando que será executado na inicialização
+        ports:
+            - "3000:3000" # a porta devo acessar na máquina real, e a porta exposta por esse container
+        volumes: 
+            - .:/usr/app # quando isso aqui rodar (o que é sempre que houver modificações por conta do nodemon) copiaremos tudo de . para dentro da pasta /user/app da máquina docker
