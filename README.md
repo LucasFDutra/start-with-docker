@@ -1,13 +1,8 @@
-Essse reporitório se encontra em Português e em inglês. Basta descer que encontrará a versão em Português
-
-This repository is in Portuguese and English. Just go down and you will find the Portuguese version
-
-- [English](#-English)
-- [Português](#-Português)
+- [**English**](#English)
+- [**Português**](#Português)
 
 # English
 ---
-
 # What this repository is about
 Here I will describe the steps I needed to take to create a container in the docker, and how to work with it
 
@@ -23,15 +18,15 @@ For this, I will create an extremely simple project in nodeJS, just calling a ro
 - Install node packages:
     - express
         ```sh
-        yarn add express
+        $ yarn add express
         # or
-        sudo npm install express
+        $ sudo npm install express
         ```
     - nodemon
         ```sh
-        yarn add nodemon
+        $ yarn add nodemon
         # or
-        sudo npm install nodemon
+        $ sudo npm install nodemon
         ```
 
 # Files
@@ -115,7 +110,7 @@ For this, I will create an extremely simple project in nodeJS, just calling a ro
 
 - Run the command below to create and run the container
     ```sh
-    docker-compose up
+    $ sudo docker-compose up
     ```
 
 # Para usar
@@ -132,11 +127,10 @@ Password: superSenha
 
 > Note 2.: When starting your node application, make sure that it will connect to postgres only affter postgres goes up on the docker machine. You can guarantee this by generating a delay in the connection.
 
-> Note 3.: If you want the container to stop running you need to type `ctrl+c` or depending on you need to type `sudo docker stop CONTAINER ID`, and to find the container id use `sudo docker ps`.
+> Note 3.: If you want the container to stop running you need to type `$ ctrl+c` or depending on you need to type `$ sudo docker stop CONTAINER ID`, and to find the container id use `$ sudo docker ps`.
 
 # Português
 ----
-
 # Do que se trata esse repositório
 Aqui eu vou descrever os passos que precisei fazer para criar um container no docker, e como trabalhar com ele.
 
@@ -152,15 +146,15 @@ Para tal, criarei um projeto extremamente simples em nodeJS, somente chamando um
 - Instale os pacotes do node:
     - express
         ```sh
-        yarn add express
+        $ yarn add express
         # ou
-        sudo npm install express
+        $ sudo npm install express
         ```
     - nodemon
         ```sh
-        yarn add nodemon
+        $ yarn add nodemon
         # ou
-        sudo npm install nodemon
+        $ sudo npm install nodemon
         ```
 
 # Arquivos
@@ -244,7 +238,7 @@ Para tal, criarei um projeto extremamente simples em nodeJS, somente chamando um
 
 - Execute o comando abaixo para criar e rodar o container
     ```sh
-    docker-compose up
+    $ sudo docker-compose up
     ```
 
 # Para usar
@@ -261,4 +255,4 @@ Password: superSenha
 
 > OBS 2.: Quando for inicializar a sua aplicação node, garanta que ela se conectará ao postgres somente depois do postgres subir na maquina docker. Pode garantir isso gerando um delay na conexão
 
-> OBS 3.: Se quiser que o container pare de rodar você precisa digitar `ctrl+c` ou dependendo precisará de digitar `sudo docker stop CONTAINER ID`, sendo que para encontrar o id do container use `sudo docker ps`.
+> OBS 3.: Se quiser que o container pare de rodar você precisa digitar `$ ctrl+c` ou dependendo precisará de digitar `$ sudo docker stop CONTAINER ID`, sendo que para encontrar o id do container use `$ sudo docker ps`.
