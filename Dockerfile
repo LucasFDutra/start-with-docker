@@ -18,4 +18,4 @@ EXPOSE 3000
 
 # o comando a ser executado pela máquina docker assim que ela subir
 # nesse caso será npm start, que foi definido dentro do package.json
-CMD [ "npm", "start" ]
+CMD [ "yarn", "start" ]

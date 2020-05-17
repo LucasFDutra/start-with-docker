@@ -4,9 +4,21 @@
 version: "3"
 
 services:
+    db:
+        image: postgres # passando nome da imagem
+        environment: 
+            POSTGRES_PASSWORD: superSenha # passando a senha do meu banco
+            POSTGRES_USER: postgres # passando o usuário do banco
+            POSTGRES_DB: my_db # passando o nome do banco
+        ports: 
+            - "5433:5432" # a porta devo acessar na máquina real, e a porta exposta por esse container 
+        volumes: 
+            - ./pgdata:/var/lib/postgresql/data # de onde sairá os arquivos do banco para onde eles irão na máquina docker
     app:
         build: . # vai iniciar a máquina, passamos o diretório em que está o Dockerfile
-        command: npm start # o comando que será executado na inicialização
+        depends_on: 
+            - "db"
+        command: "yarn start" # o comando que será executado na inicialização. o script wait-for-it, faz com que a instancia app inicialize somente depois do banco de dados subir
         ports:
             - "3000:3000" # a porta devo acessar na máquina real, e a porta exposta por esse container
         volumes: 
