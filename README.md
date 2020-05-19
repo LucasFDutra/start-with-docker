@@ -113,7 +113,7 @@ For this, I will create an extremely simple project in nodeJS, just calling a ro
     $ sudo docker-compose up
     ```
 
-# Para usar
+# To use
 Access `http://localhost:3000` to see that the route is working.
 
 ```
