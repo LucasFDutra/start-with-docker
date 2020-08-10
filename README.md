@@ -6,9 +6,9 @@ O docker é uma ferramenta que nos permite criar container para nossas aplicaç�
 
 Um container é nada mais do que um processo, e dentro desse processo você terá uma aplicação rodando com todas as suas dependências isoladas do sistema operacional. Pensando assim pode até parecer que o docker é como uma máquina virtual feita no virtual box. Afinal temos ai um sistema que consegue rodar coisas isoladamente dentro do nosso próprio sistema operacional de forma totalmente isolada. Mas não é a mesma coisa. Tem aqui um diagrama da própria documentação para nos ajudar a entender as diferenças.
 
-<div style="display:flex; flex-direction:row; align-items:center; justify-content:space-evenly">
-    <img src='./images/figura_01.png' width=40%/>
-    <img src='./images/figura_02.png' width=40%/>
+<div style="display:flex; flex-direction:row; align-items:center; justify-content:space-between">
+    <img src='./images/figura_01.png' width=30%/>
+    <img src='./images/figura_02.png' width=30%/>
 </div>
 
 
