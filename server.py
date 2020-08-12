@@ -10,4 +10,4 @@ def root():
 
 
 os.environ['FLASK_ENV'] = "development"
-app.run()
+app.run(host='0.0.0.0', port=5000)

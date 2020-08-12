@@ -66,3 +66,93 @@ aparentemente é só fazer o [download](https://docs.docker.com/docker-for-mac/i
 
 ## Windows
 Na página do docker também temos um [download](https://docs.docker.com/docker-for-windows/install/) disponível em forma de executável, mas necessita algumas configurações de virtualização. Então recomendação pessoal: Não instale o docker para windows normalmente, utilize o WSL para instalar o docker, afinal ele precisará do linux para rodar normalmente, então é melhor instalar o WLS do que tentar utilizar algum tipo de virtualização. Para isso eu recomendo ver esse video [aqui](https://www.youtube.com/watch?v=g4HKttouVxA) que mostra como fazer isso além de dar uma explicação do porque fazer dessa forma.
+
+
+# Criando um projeto para testarmos o docker
+O projeto que irei utilizar será apenas uma rota feita com flask, que está no arquivo `server.py`
+
+```Python
+from flask import Flask, jsonify
+import os
+
+app = Flask(__name__)
+
+
+@app.route('/')
+def root():
+    return 'Hello'
+
+
+os.environ['FLASK_ENV'] = "development"
+app.run(host='0.0.0.0', port=5000)
+```
+
+<img src='./images/figura_03.png' />
+
+# Criando o container
+O container a ser criado, será um container com python na versão 3.
+
+Indo até o docker hub podemos encontrar imagem do python
+
+<img src='./images/figura_04.png' />
+
+Para criar a imagem, vou utilizar o `Dockerfile`. Na [documentação](https://docs.docker.com/engine/reference/builder/) você encontra a referência para cada comando do dockerfile 
+
+
+```dockerfile
+FROM python:3.8
+
+WORKDIR /usr/src/app
+
+COPY requirements.txt ./
+RUN pip3 install --no-cache-dir -r requirements.txt
+
+COPY . .
+
+EXPOSE 5000
+
+CMD [ "python", "./server.py" ]
+```
+
+Explicando o dockerfile
+
+O dockerfile é um arquivo que é a "receita" da nossa imagem. 
+
+Como falei antes, toda imagem precisa vir a partir de outra imagem já pré-existente. Nesse caso, a imagem do python 3.8.
+
+- FROM: Indica a imagem a partir da qual eu quero criar a minha imagem
+- WORKDIR: Qual a pasta dentro do container que irei utilizar para colocar minha aplicação
+- COPY: Faz a copia de um ou mais arquivos para uma determinada pasta para dentro do container
+- RUN: Executa um comando no container
+- EXPOSE: Indica qual porta do seu computador se comunicara com qual porta do seu container
+- CMD: Executa um comando final no container, é nesse comando que você manda sua aplicação executar
+
+Ou seja, esse dockerfile faz o seguinte: Ele baixa uma imagem do python 3.8, estabelece que iremos trabalhar na pasta /usr/src/app, copia o arquivo requirements.txt para dentro de ./ (nosso workdir) e depois manda o pip instalar as dependências listadas no requirements.txt. Após instalar tudo ele copia o restante dos arquivos para dentro da pasta workdir (o arquivo server.py, a pasta images, readme.md e o proprio dockerfile), logo em seguida ele expõe a porta 5000 do container (o flask roda na porta 5000 por padrão) e depois executa o comando python, passando ./server.py como parâmetro, ou seja, ele roda o comando `python ./server.py`.
+
+O arquivo requirements.txt terá como dependência apenas o flask
+
+```txt
+Flask==1.1.2
+```
+
+Para executar esse container rode os comandos:
+
+```shell
+$ docker build -t flask_img .
+$ docker run -p 5000:5000 --name flask_hello flask_img
+```
+
+Os comandos indicam que queremos construir uma imagem chamada flask_img a partir de um dockerfile que se encontra dentro da pasta `.` (ou seja, a pasta que estamos no momento), e depois nós efetivamente rodamos o container indicando que quando eu chamar na porta 5000 do meu computador ele ligará com a porta 5000 do conatainer que recebeu o nome de flask_hello.
+
+Se você der o comando `$ docker ps` você verá os containers em execução, e poderá ver nessa lista o container `flask_hello` e se rodar o comando `$ docker images` poderá ver a imagem `flask_img`
+
+> OBS.: Container que não estão em execução, mas que existem, podem ser vistos com o comando `$ docker ps -a` e as imagens com `$ docker images -a`
+
+Agora se formos no navegador, e entrar em `http://localhost:5000` veremos a nossa aplicação rodando.
+
+>OBS: Se quiser dar start no container quando ele não estiver operando, basta rodar o comando `$ docker start nome_do_container`. Para deletar um container `$ docker rm nome_do_container`. para deletar uma imagem `$ docker rmi nome_da_imagem`. Talvez os comandos de deletar precisem do -f na frente para ser forçado.
+
+
+> OBS.: Uma coisa importante é que você precisa garantir que sua aplicação vai rodar no ip externo do container, ou seja, em 0.0.0.0, pois quando a porta dele é exposta, ela é exposta para esse ip, logo quando você acessar a porta no localhost pela sua máquina ela vai acessar a porta determinada mas no ip externo do container, por isso eu coloquei `app.run(host='0.0.0.0', port=5000)` na minha aplicação.
+
+
