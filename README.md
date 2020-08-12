@@ -140,10 +140,15 @@ O `dockerfile` é um arquivo que é a "receita" da nossa imagem.
 Como falei antes, toda imagem precisa vir a partir de outra imagem já pré-existente. Nesse caso, a imagem do python 3.8.
 
 - **FROM**: Indica a imagem a partir da qual eu quero criar a minha imagem;
+
 - **WORKDIR**: Qual a pasta dentro do container que irei utilizar para colocar minha aplicação;
+
 - **COPY**: Faz a copia de um ou mais arquivos para uma determinada pasta para dentro do container;
+
 - **RUN**: Executa um comando no container;
+
 - **EXPOSE**: Indica qual porta do seu computador se comunicara com qual porta do seu container;
+
 - **CMD**: Executa um comando final no container, é nesse comando que você manda sua aplicação executar.
 
 Ou seja, esse `dockerfile` faz o seguinte: Ele baixa uma imagem do python 3.8, estabelece que iremos trabalhar na pasta `/usr/src/app`, copia o arquivo `requirements.txt` para dentro de `./` (nosso `workdir`) e depois manda o pip instalar as dependências listadas no `requirements.txt`. Após instalar tudo ele copia o restante dos arquivos para dentro da pasta `workdir` (o arquivo `server.py`, a pasta images, readme.md e o proprio `dockerfile`), logo em seguida ele expõe a porta 5000 do container (o flask roda na porta 5000 por padrão) e depois executa o comando python, passando `./` `server.py` como parâmetro, ou seja, ele roda o comando `python ./server.py`.
@@ -293,7 +298,7 @@ E agora preciso fazer uma modificação na nossa aplicação flask, para ela ao 
                 POSTGRES_USER: postgres
                 POSTGRES_DB: flask_db
             ports: 
-                - "5434:5432"
+                - "5432:5432"
             volumes: 
                 - ./pgdata:/var/lib/postgresql/data
             networks: 
