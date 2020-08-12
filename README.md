@@ -156,3 +156,7 @@ Agora se formos no navegador, e entrar em `http://localhost:5000` veremos a noss
 > OBS.: Uma coisa importante é que você precisa garantir que sua aplicação vai rodar no ip externo do container, ou seja, em 0.0.0.0, pois quando a porta dele é exposta, ela é exposta para esse ip, logo quando você acessar a porta no localhost pela sua máquina ela vai acessar a porta determinada mas no ip externo do container, por isso eu coloquei `app.run(host='0.0.0.0', port=5000)` na minha aplicação.
 
 
+# Docker compose
+O docker compose vai nos ajudar a gerenciar nossos container, isso é bem útil quando queremos montar uma aplicação que precise de vários containers. Como por exemplo, uma aplicação flask e um banco de dados postgres, ai em um determinado momento precisa também de elasticsearch, kibana, nginx, apache. Vai pensando ai...
+
+Imagine subir cada um desses containers na mão, isso daria um trabalho tremendo, sem falar que nesse caso precisaríamos fazer os containers se comunicarem. E sempre que reiniciamos nossa máquina temos que subir eles novamente, e sempre com essas sequências de comandos. Dai vem a ideia do docker compose. Através de um arquivo .yml você consegue fazer todas essas chamadas e configurações ficarem automáticas.
